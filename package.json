@@ -1,0 +1,34 @@
+{
+  "name": "htauth",
+  "version": "0.1.0",
+  "description": "A simple Angular module to abstract Social Login (Facebook, Twitter, Google, ...)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/h4t0n/htauth.git"
+  },
+  "keywords": [
+    "auth",
+    "facebook",
+    "angular",
+    "twitter",
+    "google"
+  ],
+  "author": {
+    "name": "Andrea Tarquini",
+    "email": "tarquiniandreagm@gmail.com",
+    "url": "h4t0n.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.9.12",
+    "gulp": "^3.9.0",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-load-plugins": "^1.1.0"
+  },
+  "dependencies": {}
+}

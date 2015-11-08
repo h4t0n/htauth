@@ -1,0 +1,8 @@
+{
+  "node": true,
+  "browser": true,
+  "strict": true,
+  "globals": {
+    "angular": false
+  }
+}
