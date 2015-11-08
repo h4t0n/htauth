@@ -8,6 +8,14 @@
   <script>
     angular
       .module('testapp', ['htauth'])
+      .config(['htauth.facebookProvider',function(facebookProvider){
+
+        facebookProvider.init({
+          appId : '174327009577654',
+          locale: 'it_IT'
+        })
+
+      }])
       .controller('testFacebook', [
         'htauth.facebook',
         function(facebook) {
@@ -22,7 +30,6 @@
                 console.error(error);
               });
           }
-
         }
       ]);
   </script>
