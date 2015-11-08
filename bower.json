@@ -1,0 +1,29 @@
+{
+  "name": "htauth",
+  "description": "A simple Angular module to abstract Social Login (Facebook, Twitter, Google, ...)",
+  "main": "build/htauth.min.js",
+  "authors": [
+    "Andrea Tarquini <tarquiniandraegm@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "auth",
+    "facebook",
+    "angular",
+    "twitter",
+    "google"
+  ],
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7"
+  }
+}
