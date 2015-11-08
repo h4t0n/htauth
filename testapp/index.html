@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="app.js"></script>
+
+  <script>
+    angular
+      .module('testapp', ['htauth'])
+      .controller('testFacebook', [
+        'htauth.facebook',
+        function(facebook) {
+          var vm = this;
+          vm.login = function() {
+            facebook.login()
+              .then(function(authResponse) {
+                vm.authResponse = authResponse;
+                vm.accessToken = authResponse.accessToken;
+              })
+              .catch(function(error) {
+                console.error(error);
+              });
+          }
+
+        }
+      ]);
+  </script>
+</head>
+
+<body ng-app="testapp">
+  <div ng-controller='testFacebook as facebook'>
+    <h1> Test Facebook Provider </h1>
+    <button ng-click="facebook.login()">Facebook Login</button>
+    <pre ng-show="facebook.authResponse">{{facebook.authResponse | json}}</pre>
+    <p ng-show="facebook.accessToken">{{facebook.accessToken}}</p>
+  </div>
+</body>
+
+</html>
