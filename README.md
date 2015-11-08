@@ -13,4 +13,4 @@ This module is under development and not ready for production environment. Howev
 
 ## License
 
-MIT © [Adrea Tarquini](http://h4t0n.com) aka [@h4t0n](http://twitter.com/h4t0n)
+MIT © [Andrea Tarquini](http://h4t0n.com) aka [@h4t0n](http://twitter.com/h4t0n)
