@@ -23,7 +23,7 @@ gulp.task('browser-sync', function() {
             "/bower_components": "bower_components"
         }
       },
-      browser: "google chrome"
+      browser: "google-chrome"
     });
 });
 

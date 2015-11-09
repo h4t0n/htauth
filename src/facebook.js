@@ -18,7 +18,7 @@
     _settings.scope = 'public_profile,email';
 
     // once logged this variable stores the FB.login authResponse
-    var _authResponse = false;
+    var _authResponse = {};
 
     this.init = function (settings) {
       ['status', 'cookie', 'xfbml', 'appId', 'version', 'locale', 'scope']
@@ -26,6 +26,11 @@
         if (settings[st])
           _settings[st] = settings[st];
       });
+    };
+
+    this.getSettings = function(){
+      // return a copy of the object to avoid external side effects
+      return JSON.parse(JSON.stringify(_settings));
     };
 
     this.$get = [
@@ -126,8 +131,5 @@
     ];
 
   });
-
-
-
 
 })(angular.module("htauth"), document);
