@@ -30,7 +30,21 @@
                 console.error(error);
               });
           }
-        }
+        }])
+        .controller('testGoogle', [
+          'htauth.google',
+          function(google) {
+            var vm = this;
+            vm.login = function() {
+              google.login()
+                .then(function() {
+
+                })
+                .catch(function(error) {
+                  console.error(error);
+                });
+            }
+          }
       ]);
   </script>
 </head>
@@ -41,6 +55,11 @@
     <button ng-click="facebook.login()">Facebook Login</button>
     <pre ng-show="facebook.authResponse">{{facebook.authResponse | json}}</pre>
     <p ng-show="facebook.accessToken">{{facebook.accessToken}}</p>
+  </div>
+  <div ng-controller='testGoogle as google'>
+    <h1> Test Google Provider </h1>
+    <button ng-click="google.login()">Google Login</button>
+
   </div>
 </body>
 
