@@ -8,11 +8,15 @@
   <script>
     angular
       .module('testapp', ['htauth'])
-      .config(['htauth.facebookProvider',function(facebookProvider){
+      .config(['htauth.facebookProvider', 'htauth.googleProvider', function(facebookProvider, googleProvider) {
 
         facebookProvider.init({
-          appId : '174327009577654',
+          appId: '174327009577654',
           locale: 'it_IT'
+        })
+
+        googleProvider.init({
+          client_id: '725412889739-g3iihggrd9ut7m9d8qhs65lal6k8v9q7.apps.googleusercontent.com'
         })
 
       }])
@@ -20,46 +24,57 @@
         'htauth.facebook',
         function(facebook) {
           var vm = this;
-          vm.login = function() {
-            facebook.login()
-              .then(function(authResponse) {
-                vm.authResponse = authResponse;
-                vm.accessToken = authResponse.accessToken;
-              })
-              .catch(function(error) {
-                console.error(error);
-              });
-          }
-        }])
-        .controller('testGoogle', [
-          'htauth.google',
-          function(google) {
-            var vm = this;
-            vm.login = function() {
-              google.login()
-                .then(function() {
+          vm.login = facebook.login;
+          vm.isLogged = facebook.isLogged;
+          vm.getAuthResponse = facebook.getAuthResponse;
+          vm.getAccessToken = facebook.getAccessToken;
+        }
+      ])
+      .controller('testGoogle', [
+        'htauth.google',
+        function(google) {
 
-                })
-                .catch(function(error) {
-                  console.error(error);
-                });
-            }
-          }
+          var vm = this;
+          vm.login = google.login;
+          vm.isLogged = google.isLogged;
+          vm.getAuthResponse = google.getAuthResponse;
+          vm.getIdToken = google.getIdToken;
+
+        }
       ]);
   </script>
 </head>
 
 <body ng-app="testapp">
   <div ng-controller='testFacebook as facebook'>
-    <h1> Test Facebook Provider </h1>
-    <button ng-click="facebook.login()">Facebook Login</button>
-    <pre ng-show="facebook.authResponse">{{facebook.authResponse | json}}</pre>
-    <p ng-show="facebook.accessToken">{{facebook.accessToken}}</p>
+    <h2> Test Facebook Provider </h3>
+    <p><b>facebook.login()</b>
+      <button ng-click="facebook.login()">Click to login</button>
+    </p>
+    <p><b>facebook.isLogged()</b>
+      <pre>{{facebook.isLogged()}}</pre>
+    </p>
+    <p><b>facebook.getAuthResponse()</b>
+      <pre>{{facebook.getAuthResponse() | json }}</pre>
+    </p>
+    <p><b>facebook.getAccessToken()</b>
+      <pre>{{facebook.getAccessToken()}}</pre>
+    </p>
   </div>
   <div ng-controller='testGoogle as google'>
-    <h1> Test Google Provider </h1>
-    <button ng-click="google.login()">Google Login</button>
-
+    <h2> Test Google Provider </h3>
+    <p><b>google.login()</b>
+      <button ng-click="google.login()">Click to login</button>
+    </p>
+    <p><b>google.isLogged()</b>
+      <pre>{{google.isLogged()}}</pre>
+    </p>
+    <p><b>google.getAuthResponse()</b>
+      <pre>{{google.getAuthResponse() | json}}</pre>
+    </p>
+    <p><b>google.getIdToken()</b>
+      <pre>{{google.getIdToken()}}</pre>
+    </p>
   </div>
 </body>
 

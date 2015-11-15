@@ -13,9 +13,10 @@
     // general settings for facebook sdk
     // they can be initialized during htauth.facebookProvider config phase
     var _settings = {};
+    _settings.client_id = false;
 
     this.init = function (settings) {
-      []
+      ['client_id', 'cookie_policy', 'scope', 'fetch_basic_profile', 'hosted_domain', 'openid_realm']
       .forEach(function (st) {
         if (settings[st])
           _settings[st] = settings[st];
@@ -28,8 +29,8 @@
     };
 
     this.$get = [
-      '$window', '$q', '$timeout',
-      function ($window, $q, $timeout) {
+      '$window', '$q', '$timeout', '$rootScope',
+      function ($window, $q, $timeout, $rootScope) {
 
         $window.onLoadCallback = function () {
           // Executed when the SDK is loaded
@@ -38,7 +39,10 @@
             GoogleAuth = gapi.auth2.init(_settings);
 
             // the Google Auth is ready and initialized
-            _GA_INITIALIZED = true;
+            GoogleAuth.then(function () {
+              _GA_INITIALIZED = true;
+              $rootScope.$digest();
+            });
           });
 
         };
@@ -49,7 +53,7 @@
             id = 'google-jssdk',
             ref = d.getElementsByTagName('script')[0];
 
-          if (d.getElementById(id)) {
+          if (d.getElementById(id) || $window.gapi) {
             // google already loaded
             return;
           }
@@ -77,15 +81,53 @@
 
           function _inner_login() {
 
-            console.log("inner login");
+            GoogleAuth.signIn().then(function (GoogleUser) {
+              $rootScope.$digest();
+              deferred.resolve(GoogleUser.getAuthResponse());
+            }, function (err) {
+              if (err.reason)
+                switch (err.reason) {
+                  case "Access denied.":
+                    e = new Error("app not authorized");
+                    e.name = "AuthorizationError";
+                    deferred.reject(e);
+                    break;
+                  default:
+                    e = new Error(e.reason);
+                    e.name = "LoginError";
+                    deferred.reject(e);
+                    break;
+                }
+
+            });
 
           }
 
           return deferred.promise;
         }
 
+        function _isLogged() {
+          return _GA_INITIALIZED && GoogleAuth.isSignedIn.get();
+        }
+
+        function _authResponse() {
+          if (!_isLogged())
+            return undefined;
+
+          var GoogleUser = GoogleAuth.currentUser.get();
+          return GoogleUser.getAuthResponse();
+        }
+
         return {
           login: _login,
+          isLogged: _isLogged,
+          getAuthResponse: _authResponse,
+          getIdToken: function () {
+            var authResponse = _authResponse();
+            if(authResponse)
+              return authResponse.id_token;
+            return undefined;
+          }
         };
 
       }

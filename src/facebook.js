@@ -18,7 +18,8 @@
     _settings.scope = 'public_profile,email';
 
     // once logged this variable stores the FB.login authResponse
-    var _authResponse = {};
+    var _authResponse = {},
+      _isLogged = false;
 
     this.init = function (settings) {
       ['status', 'cookie', 'xfbml', 'appId', 'version', 'locale', 'scope']
@@ -28,14 +29,14 @@
       });
     };
 
-    this.getSettings = function(){
+    this.getSettings = function () {
       // return a copy of the object to avoid external side effects
       return JSON.parse(JSON.stringify(_settings));
     };
 
     this.$get = [
-      '$window', '$q', '$timeout',
-      function ($window, $q, $timeout) {
+      '$window', '$q', '$timeout', '$rootScope',
+      function ($window, $q, $timeout, $rootScope) {
 
         $window.fbAsyncInit = function () {
           // Executed when the SDK is loaded
@@ -49,7 +50,22 @@
 
           // the FB Global Object is ready and initialized
           _FB_INITIALIZED = true;
+
+          FB.getLoginStatus(function (response) {
+            // The response object is returned with a status field that lets the
+            // app know the current login status of the person.
+            // Full docs on the response object can be found in the documentation
+            // for FB.getLoginStatus().
+            if (response.status === 'connected') {
+              // Logged into your app and Facebook.
+              _authResponse = response.authResponse;
+              _isLogged = true;
+              $rootScope.$digest();
+            }
+          });
         };
+
+
 
         (function (d) {
           // async load the Facebook javascript SDK
@@ -79,7 +95,7 @@
             if (!_FB_INITIALIZED)
               return $timeout(check_init, 500);
             else
-               _inner_login();
+              _inner_login();
           }
           check_init();
 
@@ -97,6 +113,7 @@
               switch (response.status) {
                 case "connected":
                   _authResponse = response.authResponse;
+                  _isLogged = true;
                   deferred.resolve(_authResponse || "logged");
                   break;
                 case "not_authorized":
@@ -110,6 +127,7 @@
                   deferred.reject(e);
                   break;
               }
+              $rootScope.$digest();
 
             }, {
               scope: _settings.scope
@@ -121,7 +139,12 @@
 
         return {
           login: _login,
-          getAuthResponse: _authResponse,
+          isLogged: function(){
+            return _isLogged;
+          },
+          getAuthResponse: function(){
+            return _authResponse;
+          },
           getAccessToken: function () {
             return _authResponse.accessToken || false;
           }
