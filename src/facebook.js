@@ -18,7 +18,7 @@
     _settings.scope = 'public_profile,email';
 
     // once logged this variable stores the FB.login authResponse
-    var _authResponse = {},
+    var _authResponse,
       _isLogged = false;
 
     this.init = function (settings) {
@@ -139,14 +139,15 @@
 
         return {
           login: _login,
-          isLogged: function(){
+          isLogged: function () {
             return _isLogged;
           },
-          getAuthResponse: function(){
+          getAuthResponse: function () {
             return _authResponse;
           },
           getAccessToken: function () {
-            return _authResponse.accessToken || false;
+            if (!_authResponse) return undefined;
+            return _authResponse.accessToken || undefined;
           }
         };
 
