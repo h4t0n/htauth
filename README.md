@@ -2,8 +2,8 @@
 > A simple Angular module to abstract Social Login (Facebook, Twitter, Google, ...)
 
 ## Available Providers
-* [Facebook](#Facebook-Login-Provider)
-* [Google](#Google-Login-Provider)
+* [Facebook](#facebook-login-provider)
+* [Google](#google-login-provider)
 
 ## Planned Providers
 * Twitter (..future)
