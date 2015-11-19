@@ -15,6 +15,20 @@ gulp.task('build-dev', function () {
 
 });
 
+gulp.task('build', function () {
+
+  gulp.src(['src/*.js'])
+    .pipe($.angularFilesort())
+    .pipe($.concat('app.js'))
+    .pipe(gulp.dest('dist'))
+    .pipe($.uglify({
+      preserveComments: 'license'
+    }))
+    .pipe($.rename('app.min.js'))
+    .pipe(gulp.dest('dist'));
+
+});
+
 gulp.task('browser-sync', function() {
     browserSync.init({
       server: {
