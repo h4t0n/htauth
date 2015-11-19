@@ -1,9 +1,15 @@
 # htauth
 > A simple Angular module to abstract Social Login (Facebook, Twitter, Google, ...)
 
+## Available Providers
+* [Facebook](#Facebook-Login-Provider)
+* [Google](#Google-Login-Provider)
+
+## Planned Providers
+* Twitter (..future)
+
 ## Install
 TODO (add the module to bower repository)
-
 
 ## Usage
 ### Facebook Login Provider
@@ -239,13 +245,6 @@ get the AuthResponse Object coming from Google sdk (if the user is logged in)
 
 #### google.getIdToken()
 get the id_token (same as getAuthResponse().id_token) if the user is logged in
-
-## Available Providers
-- Facebook
-- Google
-
-## Future planned Providers
-- Twitter (..future)
 
 ## Dev and Build
 TODO
