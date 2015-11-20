@@ -13,9 +13,7 @@
     "twitter",
     "google"
   ],
-  "moduleType": [],
-  "homepage": "",
-  "private": true,
+  "homepage": "https://github.com/h4t0n/htauth",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -28,5 +26,6 @@
   },
   "devDependencies": {
     "angular-mocks": "~1.4.7"
-  }
+  },
+  "version": "1.0.0"
 }
