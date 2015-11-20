@@ -1,6 +1,8 @@
 # htauth
 > A simple Angular module to abstract Social Login (Facebook, Twitter, Google, ...)
 
+To see the library in action use this JSFiddle [Demo](https://jsfiddle.net/h4t0n/mdwL4345/) (but attention, facebook login inside jsfiddle environment doesn't work properly if you use chrome).
+
 ## Available Providers
 * [Facebook](#facebook-login-provider)
 * [Google](#google-login-provider)
