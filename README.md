@@ -12,9 +12,11 @@ To see the library in action use this JSFiddle [Demo](https://jsfiddle.net/h4t0n
 
 ## Install
 
-The module is available with `bower`.
+You can install this package locally either with npm or bower
 ```
 $ bower install htauth --save
+
+$ npm instal htauth --save
 ```
 
 You can also download and include the library file (full or minified) available in the `/dist` directory.
