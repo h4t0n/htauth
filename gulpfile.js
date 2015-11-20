@@ -19,12 +19,12 @@ gulp.task('build', function () {
 
   gulp.src(['src/*.js'])
     .pipe($.angularFilesort())
-    .pipe($.concat('app.js'))
+    .pipe($.concat('htauth.js'))
     .pipe(gulp.dest('dist'))
     .pipe($.uglify({
       preserveComments: 'license'
     }))
-    .pipe($.rename('app.min.js'))
+    .pipe($.rename('htauth.min.js'))
     .pipe(gulp.dest('dist'));
 
 });
