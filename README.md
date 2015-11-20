@@ -9,7 +9,13 @@
 * Twitter (..future)
 
 ## Install
-TODO (add the module to bower repository)
+
+The module is available with `bower`.
+```
+$ bower install htauth --save
+```
+
+You can also download and include the library file (full or minified) available in the `/dist` directory.
 
 ## Usage
 ### Facebook Login Provider
