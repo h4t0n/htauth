@@ -16,7 +16,7 @@ You can install this package locally either with npm or bower
 ```
 $ bower install htauth --save
 
-$ npm instal htauth --save
+$ npm install htauth --save
 ```
 
 You can also download and include the library file (full or minified) available in the `/dist` directory.
